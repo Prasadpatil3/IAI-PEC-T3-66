@@ -1,0 +1,1289 @@
+{
+  "name": "AI study Assistant - Main",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -1120,
+        -32
+      ],
+      "id": "0133eb43-85ec-4f18-8498-a0f90219d534",
+      "name": "Telegram Trigger",
+      "webhookId": "fc8fa662-5d36-454b-85bb-cbfde1926bb1",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Hello! Welcome to AI Study Assistant 🎓  I can help you manage your studies.  Send /help to see available commands.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        -608
+      ],
+      "id": "ba621528-3ecb-49fc-b8ff-57ac8a5298aa",
+      "name": "Send a text message",
+      "webhookId": "6a8d987c-73f3-49ad-8356-2198ce6df95b",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "eebf6de8-b519-4c9a-a0b7-b3a6a0bb0a79"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "eeb2972b-565a-4a1e-88f3-09b3c4cefeaa",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "b5816c36-5e1e-42da-9a9c-3f9a5879ed42",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/task",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "06c4d558-f417-48f6-a5b4-22decd38ad6e",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/tasks",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "10d1a6fa-b367-4ab5-b0f4-7d29ff868ae5",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/quiz",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "3499311c-4d43-4dc5-bb9a-4365e3171cd3",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/summarize",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "863c6183-35ec-4c42-8f5c-49a2c466441f",
+                    "leftValue": "={{ ($json.message.text || '').trim().split(/\\s+/)[0].split('@')[0] }}",
+                    "rightValue": "/complete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        -768,
+        -64
+      ],
+      "id": "a090cc3d-e364-42cf-b4ed-20e27006333d",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "AI Study Assistant — Available Commands  /start - Welcome message /help - Show commands /task - Add a study task /tasks - View pending tasks /quiz - Generate a quiz /summarize - Summarize study notes",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        -320
+      ],
+      "id": "3ddb9dcc-d062-4615-9d7a-72962b492212",
+      "name": "Send a text message1",
+      "webhookId": "74538328-3a12-468c-b3cc-31e923087bfd",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "✅ Your study task has been saved!  Check /tasks to view your pending assignments.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        704,
+        -64
+      ],
+      "id": "ff096cfa-7906-4e05-9bba-9b685fe52705",
+      "name": "Send a text message2",
+      "webhookId": "ee47c0f4-46fb-4d92-9690-e85676f3f8c9",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "task": "={{ $('Telegram Trigger').item.json.message.text.split('|')[0].replace('/task', '').trim() }}",
+            "deadline": "={{ $('Telegram Trigger').item.json.message.text.split('|')[1].trim() }}",
+            "status": "pending",
+            "reminder_sent": "false"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "task",
+              "displayName": "task",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "deadline",
+              "displayName": "deadline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reminder_sent",
+              "displayName": "reminder_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        352,
+        -32
+      ],
+      "id": "aa11a2fe-9679-41a4-a4e5-a12ad4edb41a",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chat_id",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        272,
+        240
+      ],
+      "id": "16299f7f-70d8-43bc-a4ff-6687ffa33bc2",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(item => item.json);\n\nif (rows.length === 0) {\n  return [{\n    json: {\n      text: \"You have no saved tasks yet. Use /task to add one.\"\n    }\n  }];\n}\n\nconst lines = rows.map((row, index) => {\n  return `${index + 1}. ${row.task}\\nDeadline: ${row.deadline}\\nStatus: ${row.status}`;\n});\n\nreturn [{\n  json: {\n    text: \"📚 Your Study Tasks\\n\\n\" + lines.join(\"\\n\\n\")\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        192
+      ],
+      "id": "d09bd73c-6bd4-4f62-a61a-d9eff2d66ddd",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        80
+      ],
+      "id": "c0e25702-3a2c-44a3-9e86-f40edaad0834",
+      "name": "Send a text message3",
+      "webhookId": "41c83ccb-70b4-4581-9071-dd45f183120f",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\nYou are a quiz generator for a B.Tech CSE student.\n\nTopic: Use the topic supplied by the user.\n\nGenerate exactly 5 multiple-choice questions.\n\nReturn ONLY valid JSON in this exact structure:\n{\n  \"topic\": \"topic name\",\n  \"questions\": [\n    {\n      \"question\": \"Question text\",\n      \"options\": {\n        \"A\": \"Option A\",\n        \"B\": \"Option B\",\n        \"C\": \"Option C\",\n        \"D\": \"Option D\"\n      },\n      \"correct_answer\": \"A\",\n      \"explanation\": \"Short explanation\"\n    }\n  ]\n}\n\nRequirements:\n- Generate exactly 5 questions.\n- Each question must have four options.\n- correct_answer must be A, B, C, or D.\n- Do not include Markdown fences or text outside the JSON.\n- Keep the questions technically accurate.\n",
+        "messages": {
+          "messageValues": []
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -1216,
+        544
+      ],
+      "id": "9271c3bc-5304-4fc5-b9fb-9026ed545fcf",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -1120,
+        832
+      ],
+      "id": "beaa2548-c6dd-460f-acd9-8f485da920a7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Sv5wbQvEVZE1fEqe",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "=\n{{\n  '📚 ' + $json.topic + '\\n\\n' +\n  JSON.parse($json.questions_json).map((q, i) =>\n    (i + 1) + '. ' + q.question + '\\n' +\n    'A) ' + q.options.A + '\\n' +\n    'B) ' + q.options.B + '\\n' +\n    'C) ' + q.options.C + '\\n' +\n    'D) ' + q.options.D\n  ).join('\\n\\n') +\n  '\\n\\n✍️ Reply with your answers!'\n}}\n",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -544,
+        1088
+      ],
+      "id": "60a60455-e73c-4400-8a94-42f6eb0c1aa9",
+      "name": "Send a text message4",
+      "webhookId": "820f4563-4b0d-43d2-96f7-be8fcd574187",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst input = $input.first().json;\n\n// Get the quiz output from Basic LLM Chain\nlet rawQuiz = input.text || input.response || input.output || input;\n\n// Parse JSON if the AI returned a string\nlet quiz;\n\nif (typeof rawQuiz === 'string') {\n  // Remove optional Markdown code fences\n  rawQuiz = rawQuiz\n    .replace(/^```(?:json)?\\s*/i, '')\n    .replace(/\\s*```$/i, '')\n    .trim();\n\n  quiz = JSON.parse(rawQuiz);\n} else {\n  quiz = rawQuiz;\n}\n\n// Extract questions\nconst questions = quiz.questions || [];\n\nif (!Array.isArray(questions) || questions.length === 0) {\n  throw new Error(\n    'No quiz questions found. Check the Basic LLM Chain output.'\n  );\n}\n\n// Format the quiz for Telegram\nconst formattedQuiz = [\n  `📚 ${quiz.topic || 'Practice Quiz'}`,\n  '',\n  'Answer each question by choosing A, B, C, or D.',\n  '',\n  ...questions.flatMap((q, index) => [\n    `${index + 1}. ${q.question}`,\n    `A) ${q.options?.A || ''}`,\n    `B) ${q.options?.B || ''}`,\n    `C) ${q.options?.C || ''}`,\n    `D) ${q.options?.D || ''}`,\n    ''\n  ]),\n  '✍️ Reply with your answers, for example: 1-A, 2-C, 3-B'\n].join('\\n');\n\n// Get the chat ID from the Telegram Trigger\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\n\nreturn [\n  {\n    json: {\n      chat_id: chatId,\n      topic: quiz.topic || 'Practice Quiz',\n      questions_json: JSON.stringify(questions),\n      formatted_quiz: formattedQuiz,\n      current_question: 0,\n      score: 0,\n      status: 'active'\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        608
+      ],
+      "id": "05249141-930c-4bd3-bd00-14240b0f63b9",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 100221331,
+          "mode": "list",
+          "cachedResultName": "QuizSessions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=100221331"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $json.chat_id }}",
+            "topic": "={{ $json.topic }}",
+            "questions_json": "={{ $json.questions_json }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "questions_json",
+              "displayName": "questions_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -480,
+        752
+      ],
+      "id": "3caebb21-2625-4ddc-8396-b85d5b920676",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text || '' }}",
+                    "rightValue": "^\\s*\\d+\\s*[-:.)]\\s*[A-Da-d]",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    },
+                    "id": "244e0f80-ae44-4f5b-8d4a-f27ffdb1ba03"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        -896,
+        336
+      ],
+      "id": "51b8a2db-bff5-42bf-a18d-aa8f8885d19b",
+      "name": "Quiz Answer Router"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 100221331,
+          "mode": "list",
+          "cachedResultName": "QuizSessions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=100221331"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chat_id",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            },
+            {
+              "lookupColumn": "status",
+              "lookupValue": "=active"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -416,
+        528
+      ],
+      "id": "cfdaab56-97a3-4cdc-ad65-78197f4ee1e2",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst rows = $input.all().map(item => item.json);\n\n// Find the latest active quiz session.\nconst sessions = rows\n  .filter(row => row.status === 'active' && row.questions_json)\n  .sort((a, b) => Number(b.row_number || b.rowNumber || 0) -\n                  Number(a.row_number || a.rowNumber || 0));\n\nif (sessions.length === 0) {\n  throw new Error('No active quiz session with questions_json was found.');\n}\n\nconst session = sessions[0];\nconst questions = typeof session.questions_json === 'string'\n  ? JSON.parse(session.questions_json)\n  : session.questions_json;\n\n// Get the incoming Telegram answer message.\nconst answerText = $('Telegram Trigger').first().json.message.text || '';\nconst chatId = $('Telegram Trigger').first().json.message.chat.id;\n\n// Accept answers like: 1-A, 2-C, 3-B, 4-D, 5-A\nconst answerMap = {};\nconst pattern = /(\\d+)\\s*[-:.)]\\s*([A-D])/gi;\nlet match;\n\nwhile ((match = pattern.exec(answerText)) !== null) {\n  answerMap[Number(match[1])] = match[2].toUpperCase();\n}\n\nif (Object.keys(answerMap).length === 0) {\n  throw new Error('No answers found. Use a format like 1-A, 2-C, 3-B.');\n}\n\nlet score = 0;\nconst feedback = [];\n\nquestions.forEach((q, index) => {\n  const questionNumber = index + 1;\n  const userAnswer = answerMap[questionNumber] || 'Not answered';\n  const correctAnswer = String(q.correct_answer || '').trim().toUpperCase();\n  const isCorrect = userAnswer === correctAnswer;\n\n  if (isCorrect) score++;\n\n  feedback.push(\n    `${questionNumber}. ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswer} | Correct: ${correctAnswer}` +\n    (q.explanation ? `\\n   ${q.explanation}` : '')\n  );\n});\n\nconst total = questions.length;\n\nreturn [{\n  json: {\n    chat_id: chatId,\n    topic: session.topic || 'Quiz',\n    score,\n    total,\n    status: 'completed',\n    feedback: feedback.join('\\n\\n'),\n    result_message:\n      `📊 Quiz Results: ${session.topic || 'Quiz'}\\n\\n` +\n      `Score: ${score}/${total}\\n\\n` +\n      feedback.join('\\n\\n')\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        464
+      ],
+      "id": "cbc02708-6e2a-436b-9e8f-f409b73a13b8",
+      "name": "Grade Quiz Answers"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $('Grade Quiz Answers').first().json.result_message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        896
+      ],
+      "id": "9401b1e7-bf3e-45e2-b4bf-86100d1a3552",
+      "name": "Send a text message5",
+      "webhookId": "1bb4db8b-db0c-401c-955d-d17757fce798",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1517627525,
+          "mode": "list",
+          "cachedResultName": "QuizResults",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=1517627525"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "=\t{{ $json.chat_id }}",
+            "topic": "=\t{{ $json.topic }}",
+            "total": "=\t{{ $json.total }}",
+            "score": "=\t{{ $json.score }}",
+            "status": "=\t{{ $json.status }}",
+            "completed_at": "=\t{{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "completed_at",
+              "displayName": "completed_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        32,
+        832
+      ],
+      "id": "ff9c319e-e9e5-40a4-9f53-2a796cc8c27f",
+      "name": "Save Quiz Result",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst message = $('Telegram Trigger').first().json.message;\nconst text = (message.text || '').trim();\nconst match = text.match(/^\\/complete(?:@\\w+)?\\s+(\\d+)$/i);\n\nif (!match) {\n  return [{\n    json: {\n      chat_id: message.chat.id,\n      error: 'Use /complete 1 to mark task number 1 as completed.'\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    chat_id: message.chat.id,\n    task_number: Number(match[1])\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        224
+      ],
+      "id": "72214d63-b726-4ea2-80b8-dd3fca6444bf",
+      "name": "Parse completed command"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chat_id",
+              "lookupValue": "={{ $json.chat_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        352,
+        480
+      ],
+      "id": "00e84ec8-f551-472c-aaff-54a394e7fc0b",
+      "name": "Find Task to Complete",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst rows = $input.all().map(item => item.json);\nconst message = $('Telegram Trigger').first().json.message;\nconst text = (message.text || '').trim();\n\nconst match = text.match(/^\\/complete(?:@\\w+)?\\s+(\\d+)$/i);\n\nif (!match) {\n  return [{\n    json: {\n      chat_id: message.chat.id,\n      error: 'Use /complete 1 to complete task 1.'\n    }\n  }];\n}\n\nconst taskNumber = Number(match[1]);\n\n// Ignore rows without a task name.\nconst tasks = rows.filter(row =>\n  String(row.chat_id) === String(message.chat.id) &&\n  String(row.task || '').trim() !== ''\n);\n\nif (taskNumber < 1 || taskNumber > tasks.length) {\n  return [{\n    json: {\n      chat_id: message.chat.id,\n      error: `Task ${taskNumber} was not found. You have ${tasks.length} saved task(s).`\n    }\n  }];\n}\n\nconst task = tasks[taskNumber - 1];\n\nreturn [{\n  json: {\n    chat_id: message.chat.id,\n    task: task.task,\n    deadline: task.deadline,\n    status: 'completed',\n    reminder_sent: task.reminder_sent,\n    task_number: taskNumber,\n    row_number: task['row number'] ?? task.row_number ?? task.rowNumber ?? null,\n    message: `Task completed: ${task.task}`\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        560
+      ],
+      "id": "4593eeae-295f-4e08-822a-d8a794d4a26c",
+      "name": "Find Task to Complete1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No",
+          "mode": "list",
+          "cachedResultName": "AI Study Assistant Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17jhteyJM3Mtg8iPYgZJfYDYe4Z6SwNHrakznzs7C6No/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "status": "completed",
+            "chat_id": "={{ $json.chat_id }}",
+            "task": "=\t{{ $json.task }}",
+            "deadline": "=\t{{ $json.deadline }}",
+            "reminder_sent": "=\t{{ $json.reminder_sent }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "task",
+              "displayName": "task",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "deadline",
+              "displayName": "deadline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reminder_sent",
+              "displayName": "reminder_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        544
+      ],
+      "id": "541185f4-846d-4db6-a3a9-8b694b5c4b99",
+      "name": "Mark Task Completed",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3lCGDRyK6b95hbto",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ '✅ Task completed successfully!\\n\\n📚 ' + $('Find Task to Complete1').first().json.task + '\\nStatus: Completed' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1264,
+        544
+      ],
+      "id": "8e2ba300-22a2-4d4d-9866-e1c49b53a998",
+      "name": "Send a text message6",
+      "webhookId": "f6effeac-ef4f-4b06-b783-4b7accc5ba40",
+      "credentials": {
+        "telegramApi": {
+          "id": "r7IcqPTMAaJdJ55d",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Quiz Answer Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Parse completed command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message1": {
+      "main": [
+        []
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        []
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quiz Answer Router": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Grade Quiz Answers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grade Quiz Answers": {
+      "main": [
+        [
+          {
+            "node": "Save Quiz Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Quiz Result": {
+      "main": [
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse completed command": {
+      "main": [
+        [
+          {
+            "node": "Find Task to Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Task to Complete": {
+      "main": [
+        [
+          {
+            "node": "Find Task to Complete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Task to Complete1": {
+      "main": [
+        [
+          {
+            "node": "Mark Task Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Task Completed": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "542b04f0-027b-4057-9db8-2516c5a97e6c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1708ab8445476a196a9692b2e3fe201d3fc17324f3661705a0bc836e2993dece"
+  },
+  "nodeGroups": [],
+  "id": "5STHC8TXbFsQd46V",
+  "tags": []
+}
